@@ -1,0 +1,44 @@
+.mainForm {
+    &--mainWrapper {
+        background-color: white;
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 50px;
+        border-radius: 10px;
+        padding: 15px;
+
+        &__heading {
+            text-align: center;
+        }
+
+        &--upperSectionWrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &--buttonsListWrapper {
+            display: flex;
+            gap: 15px;
+
+            &__breakLine {
+                width: 2px;
+                height: 90%;
+                background-color: red;
+                border-radius: 10px;
+            }
+        }
+
+        &--selectedButtonWrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 3px;
+        }
+
+        &--tasksList {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+}

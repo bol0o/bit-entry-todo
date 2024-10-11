@@ -1,7 +1,10 @@
+import React from 'react';
+import MainForm from '../../components/MainForm/MainForm';
+
 export default function Home() {
-  return (
-    <>
-        <h1>Hello world!</h1>
-    </>
-  );
+    return (
+        <main>
+            <MainForm />
+        </main>
+    );
 }
