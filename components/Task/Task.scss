@@ -1,8 +1,27 @@
 .task {
     &--mainWrapper {
-        border: 1px solid red;
+        background-color: white;
         display: flex;
         justify-content: space-between;
         padding: 12px;
+        -webkit-box-shadow: 3px 7px 32px -12px rgba(66, 68, 90, 0.3);
+        -moz-box-shadow: 3px 7px 32px -12px rgba(66, 68, 90, 0.3);
+        box-shadow: 3px 7px 32px -12px rgba(66, 68, 90, 0.3);
+        border-radius: 10px;
+
+        &__title {
+            position: relative;
+            display: inline-block;
+            font-size: 1.6rem;
+            &__done::before {
+                content: '';
+                border-bottom: 2px solid #000103;
+                border-radius: 10px;
+                width: 100%;
+                position: absolute;
+                right: 0;
+                top: 50%;
+            }
+        }
     }
 }

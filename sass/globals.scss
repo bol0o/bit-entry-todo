@@ -3,16 +3,16 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  scroll-behavior: smooth;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    scroll-behavior: smooth;
 }
 
 html {
-  box-sizing: border-box;
-  font-size: 100%; /* 16px by default */
-  overflow-x: hidden;
-  background-color: #02111b;
+    box-sizing: border-box;
+    font-size: 100%; /* 16px by default */
+    overflow-x: hidden;
+    background-color: #f2f5ff;
 }
