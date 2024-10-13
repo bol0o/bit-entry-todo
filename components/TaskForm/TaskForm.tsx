@@ -35,22 +35,25 @@ export default function TaskForm({
     };
 
     return (
-        <div className="taskForm--mainWrapper" style={addFormOpen ? { display: 'flex' } : { display: 'none' }}>
+        <div className={`taskForm--mainWrapper ${addFormOpen ? 'taskForm--mainWrapper__active' : ''}`}>
             <input
                 type="text"
                 placeholder="Podaj tytuł zadania..."
                 value={newTaskName}
                 onChange={(e) => setNewTaskName(e.target.value)}
+                disabled={!addFormOpen}
             />
             <input
                 type="text"
                 placeholder="Podaj opis zadania..."
                 value={newTaskDescription}
                 onChange={(e) => setNewTaskDescription(e.target.value)}
+                disabled={!addFormOpen}
             />
             <button
                 type="button"
                 onClick={() => addTask()}
+                disabled={!addFormOpen}
             >
                 Dodaj
             </button>

@@ -2,14 +2,12 @@ import React from 'react';
 import Task, { TaskProps } from '../Task/Task';
 
 interface TasksListProps {
-    tasks: TaskProps[],
     shownTasks: TaskProps[],
     toggleTaskDone: (id: number) => void,
     removeTask: (id: number) => void
 }
 
 export default function TasksList({
-    tasks,
     shownTasks,
     toggleTaskDone,
     removeTask,
@@ -26,7 +24,7 @@ export default function TasksList({
                     removeTask={() => removeTask(task.id)}
                 />
             ))}
-            {tasks.length > 0 ? null
+            {shownTasks.length > 0 ? null
                 : (
                     <div style={{ alignSelf: 'center', textAlign: 'center' }}>
                         <p>Narazie nic tu nie ma!</p>

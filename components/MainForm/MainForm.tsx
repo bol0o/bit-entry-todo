@@ -60,7 +60,6 @@ export default function MainForm() {
                 setAddFormOpen={setAddFormOpen}
             />
             <TasksList
-                tasks={tasks}
                 shownTasks={shownTasks}
                 toggleTaskDone={toggleTaskDone}
                 removeTask={removeTask}

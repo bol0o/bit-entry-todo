@@ -34,7 +34,6 @@
             align-items: center;
             background-color: #fffcfc;
             gap: 5px;
-            color: #000103;
             font-size: 1rem;
         }
     }
@@ -46,16 +45,17 @@
 
         &__selectedType {
             transition: all 0.2s;
+            color: #000103;
 
             &:hover {
                 color: #5296a5;
                 cursor: pointer;
             }
-        }
 
-        &__active {
-            color: #5296a5;
-            font-weight: 600;
+            &__active {
+                color: #5296a5;
+                font-weight: 600;
+            }
         }
 
         &__count {
@@ -78,13 +78,13 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        border-radius: 10px;
+        border-radius: 5px;
         padding: 10px;
         font-size: 0.8rem;
+        font-weight: 600;
         color: #000103;
         background-color: rgba(82, 150, 165, 0.5);
-        transition: all 0.2s;
-        will-change: width;
+        transition: all 0.3s;
         max-height: 40px;
 
         &:hover {

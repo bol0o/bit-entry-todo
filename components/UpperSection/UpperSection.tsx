@@ -26,9 +26,13 @@ export default function UpperSection({
                     <button
                         type="button"
                         onClick={() => setSelectedList(0)}
-                        className={selectedList === 0 ? 'upperSection--mainWrapper--selectedButtonWrapper__active' : ''}
                     >
-                        <p className="upperSection--mainWrapper--selectedButtonWrapper__selectedType">Wszystkie</p>
+                        <p
+                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
+                            ${selectedList === 0 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
+                        >
+                            Wszystkie
+                        </p>
                         <p
                             className={`upperSection--mainWrapper--selectedButtonWrapper__count
                             ${selectedList === 0 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
@@ -42,9 +46,13 @@ export default function UpperSection({
                     <button
                         type="button"
                         onClick={() => setSelectedList(1)}
-                        className={selectedList === 1 ? 'upperSection--mainWrapper--selectedButtonWrapper__active' : ''}
                     >
-                        <p className="upperSection--mainWrapper--selectedButtonWrapper__selectedType">Do zrobienia</p>
+                        <p
+                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
+                            ${selectedList === 1 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
+                        >
+                            Do zrobienia
+                        </p>
                         <p
                             className={`upperSection--mainWrapper--selectedButtonWrapper__count
                             ${selectedList === 1 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
@@ -59,7 +67,12 @@ export default function UpperSection({
                         onClick={() => setSelectedList(2)}
                         className={selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__active' : ''}
                     >
-                        <p className="upperSection--mainWrapper--selectedButtonWrapper__selectedType">Wykonane</p>
+                        <p
+                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
+                            ${selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
+                        >
+                            Wykonane
+                        </p>
                         <p
                             className={`upperSection--mainWrapper--selectedButtonWrapper__count
                             ${selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
