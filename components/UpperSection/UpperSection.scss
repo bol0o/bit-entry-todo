@@ -4,7 +4,7 @@
         justify-content: space-between;
 
         @media screen and (max-width: 600px) {
-            flex-direction: column-reverse;
+            align-items: center;
         }
     }
 
@@ -13,11 +13,20 @@
         align-items: center;
         gap: 15px;
 
+        @media screen and (max-width: 600px) {
+            min-width: 150px;
+            flex-direction: column;
+        }
+
         &__breakLine {
             width: 2px;
             height: 50%;
             background-color: #515052;
             border-radius: 10px;
+
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
         }
 
         button {
@@ -25,6 +34,8 @@
             align-items: center;
             background-color: #fffcfc;
             gap: 5px;
+            color: #000103;
+            font-size: 1rem;
         }
     }
 
@@ -69,9 +80,12 @@
         gap: 10px;
         border-radius: 10px;
         padding: 10px;
+        font-size: 0.8rem;
+        color: #000103;
         background-color: rgba(82, 150, 165, 0.5);
         transition: all 0.2s;
         will-change: width;
+        max-height: 40px;
 
         &:hover {
             background-color: rgba(82, 150, 165, 0.7);
