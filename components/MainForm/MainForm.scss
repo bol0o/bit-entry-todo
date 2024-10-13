@@ -1,0 +1,21 @@
+.mainForm {
+    &--mainWrapper {
+        background-color: #fffcfc;
+        border: 2px solid #000103;
+        max-width: 630px;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        padding: 15px;
+
+        @media screen and (max-width: 600px) {
+            margin-inline: 5px;
+        }
+
+        &__heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    }
+}
