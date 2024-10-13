@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTrash } from "react-icons/fa";
+import { FaTrash } from 'react-icons/fa';
 
 export interface TaskProps {
     id: number,
@@ -7,6 +7,7 @@ export interface TaskProps {
     description: string,
     isDone: boolean,
     markAsDone: () => void
+    removeTask: () => void
 }
 
 export default function Task({
@@ -15,24 +16,36 @@ export default function Task({
     description,
     isDone,
     markAsDone,
+    removeTask,
 }: TaskProps) {
     return (
-        <div className="task--mainWrapper">
+        <div className="task--mainWrapper" key={id}>
             <div>
                 <div>
                     <p
                         className={`task--mainWrapper__title
                         ${isDone ? 'task--mainWrapper__title__done' : ''}`}
                     >
-                        {title}
+                        {title === '' ? 'Brak tytułu' : title}
                     </p>
-                    <p className="task--mainWrapper__description">{description}</p>
+                    <p className="task--mainWrapper__description">
+                        {description === '' ? 'Brak opisu' : description}
+                    </p>
                 </div>
-                <button type="button">
-                    <FaTrash style={{ width: 20, height: 20, color: '#FF7477' }} />
+                <button
+                    type="button"
+                    onClick={removeTask}
+                    className="task--mainWrapper__removeButton"
+                >
+                    <FaTrash className="task--mainWrapper__removeButton__icon" />
                 </button>
             </div>
-            <input type="checkbox" checked={isDone} onClick={markAsDone} />
+            <input
+                type="checkbox"
+                checked={isDone}
+                onClick={markAsDone}
+                className="task--mainWrapper__doneButton"
+            />
         </div>
     );
 }

@@ -1,0 +1,27 @@
+.taskForm {
+    &--mainWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+
+        input {
+            border: 1px solid #000103;
+            font-size: 1.2rem;
+        }
+
+        button {
+            align-self: center;
+            width: 50%;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(82, 150, 165, 0.5);
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: rgba(82, 150, 165, 0.7);
+                cursor: pointer;
+            }
+        }
+    }
+}
