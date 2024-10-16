@@ -22,5 +22,5 @@ export class Task {
 
     @Column()
     @IsBoolean()
-        completed: boolean = false;
+        isDone: boolean = false;
 }

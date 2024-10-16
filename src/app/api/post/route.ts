@@ -4,10 +4,10 @@ import { Task } from '../../../entities/task';
 /* eslint-disable import/prefer-default-export */
 
 export async function POST(req: Request) {
-    const { title, description, completed } = await req.json();
+    const { title, description, isDone } = await req.json();
     const dataSource = await connectToDatabase();
     const todoRepo = dataSource.getRepository(Task);
-    const newTodo = todoRepo.create({ title, description, completed });
+    const newTodo = todoRepo.create({ title, description, isDone });
     await todoRepo.save(newTodo);
     return NextResponse.json(newTodo, { status: 201 });
 }

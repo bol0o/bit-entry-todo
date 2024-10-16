@@ -12,6 +12,7 @@ export default function TasksList({
     toggleTaskDone,
     removeTask,
 }: TasksListProps) {
+    console.log(shownTasks);
     return (
         <div className="tasksList--mainWrapper">
             {shownTasks.map((task: TaskProps) => (

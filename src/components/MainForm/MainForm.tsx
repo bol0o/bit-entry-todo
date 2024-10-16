@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import UpperSection from '../UpperSection/UpperSection';
 import TasksList from '../TasksList/TasksList';
 import { TaskProps } from '../Task/Task';
@@ -15,39 +16,86 @@ export default function MainForm() {
     const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const toggleTaskDone = async (id: string) => {
-        const res = await fetch(`/api/update/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ completed: true }),
+    const fetchTasksRequest = async () => {
+        const response = await fetch('/api/get', {
+            method: 'GET',
         });
 
-        const updatedTask = await res.json();
-        setTasks((prevTasks) => prevTasks.map((task) => {
-            if (task.id === id) {
-                return updatedTask;
-            }
+        if (!response.ok) {
+            throw new Error('Failed to fetch tasks');
+        }
 
-            return task;
-        }));
+        return response.json();
     };
 
-    const removeTask = async (id: string) => {
-        await fetch(`/api/delete/${id}`, {
+    const markCompleteRequest = async (id: string) => {
+        const response = await fetch(`/api/update/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isDone: true }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update task');
+        }
+
+        return response.json();
+    };
+
+    const deleteTaskRequest = async (id: string) => {
+        const response = await fetch(`/api/delete/${id}`, {
             method: 'DELETE',
         });
 
-        setTasks(tasks.filter((task) => task.id !== id));
+        if (!response.ok) {
+            throw new Error('Failed to delete task');
+        }
+    };
+
+    const toggleTaskDone = async (id: string) => {
+        toast.promise(
+            markCompleteRequest(id),
+            {
+                loading: 'Zmienianie stanu zadania...',
+                success: 'Zmieniono stan zadania!',
+                error: 'Wystąpił problem podczas zmieniania stanu zadania! Spróbuj ponownie!',
+            },
+        ).then(() => {
+            setTasks((prevTasks) => prevTasks.map((task) => {
+                if (task.id === id) {
+                    return { ...task, isDone: !task.isDone };
+                }
+
+                return task;
+            }));
+        });
+    };
+
+    const removeTask = async (id: string) => {
+        toast.promise(
+            deleteTaskRequest(id),
+            {
+                loading: 'Usuwanie zadania...',
+                success: 'Usunięto zadanie!',
+                error: 'Wystąpił błąd podczas usuwania zadania! Spróbuj ponownie!',
+            },
+        ).then(() => {
+            // Update state to remove the deleted task
+            setTasks(tasks.filter((task) => task.id !== id));
+        });
     };
 
     useEffect(() => {
-        const fetchTodos = async () => {
-            const res = await fetch('/api/get');
-            const data = await res.json();
-            setTasks(data);
-        };
-
-        fetchTodos();
+        toast.promise(
+            fetchTasksRequest(),
+            {
+                loading: 'Pobieranie zadań...',
+                success: 'Zadania pobrane!',
+                error: 'Wystąpił błąd podczas pobierania zadań! Spróbuj ponownie!',
+            },
+        ).then((fetchedTasks) => {
+            setTasks(fetchedTasks);
+        });
     }, []);
 
     useEffect(() => {
@@ -56,9 +104,9 @@ export default function MainForm() {
     }, [tasks]);
 
     useEffect(() => {
-        if (selectedList === 0) {
+        if (selectedList === 1) {
             setShownTasks(tasks.filter((task) => !task.isDone));
-        } else if (selectedList === 1) {
+        } else if (selectedList === 2) {
             setShownTasks(tasks.filter((task) => task.isDone));
         } else {
             setShownTasks(tasks);
@@ -67,6 +115,7 @@ export default function MainForm() {
 
     return (
         <section className="mainForm--mainWrapper">
+            <Toaster />
             <h1 className="mainForm--mainWrapper__heading">To-Do</h1>
             <UpperSection
                 tasks={tasks}

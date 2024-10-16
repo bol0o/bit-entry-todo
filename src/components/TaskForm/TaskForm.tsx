@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { TaskProps } from '../Task/Task';
 
 interface TaskFormProps {
@@ -21,6 +22,20 @@ export default function TaskForm({
     const [newTaskName, setNewTaskName] = useState<string>('');
     const [newTaskDescription, setNewTaskDescription] = useState<string>('');
 
+    const postTaskRequest = async (newTask: Partial<TaskProps>) => {
+        const response = await fetch('/api/post', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTask),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add task');
+        }
+
+        return response.json();
+    };
+
     const addTask = async () => {
         setDisabled(true);
 
@@ -32,24 +47,27 @@ export default function TaskForm({
             removeTask: () => { },
         };
 
-        const res = await fetch('/api/post', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newTask),
+        toast.promise(
+            postTaskRequest(newTask),
+            {
+                loading: 'Dodawanie nowego zadania...',
+                success: 'Pomyślnie dodano zadanie!',
+                error: 'Wystąpił błąd podczas dodawania zadania! Spróbuj ponownie!',
+            },
+        ).then((savedTask) => {
+            setTasks([...tasks, savedTask]);
+            setNewTaskName('');
+            setNewTaskDescription('');
+            setAddFormOpen(false);
+            setDisabled(false);
         });
-
-        const savedTask = await res.json();
-
-        setTasks([...tasks, savedTask]);
-        setNewTaskName('');
-        setNewTaskDescription('');
-        setAddFormOpen(false);
 
         setDisabled(false);
     };
 
     return (
         <div className={`taskForm--mainWrapper ${addFormOpen ? 'taskForm--mainWrapper__active' : ''}`}>
+            <Toaster />
             <input
                 type="text"
                 placeholder="Podaj tytuł zadania..."
