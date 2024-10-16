@@ -3,8 +3,8 @@ import Task, { TaskProps } from '../Task/Task';
 
 interface TasksListProps {
     shownTasks: TaskProps[],
-    toggleTaskDone: (id: number) => void,
-    removeTask: (id: number) => void
+    toggleTaskDone: (id: string) => void,
+    removeTask: (id: string) => void
 }
 
 export default function TasksList({
@@ -16,6 +16,7 @@ export default function TasksList({
         <div className="tasksList--mainWrapper">
             {shownTasks.map((task: TaskProps) => (
                 <Task
+                    key={task.id}
                     id={task.id}
                     title={task.title}
                     description={task.description}

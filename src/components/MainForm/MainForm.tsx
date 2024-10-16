@@ -5,6 +5,7 @@ import UpperSection from '../UpperSection/UpperSection';
 import TasksList from '../TasksList/TasksList';
 import { TaskProps } from '../Task/Task';
 import TaskForm from '../TaskForm/TaskForm';
+/* eslint-disable @typescript-eslint/indent */
 
 export default function MainForm() {
     const [tasks, setTasks] = useState<TaskProps[]>([]);
@@ -12,20 +13,42 @@ export default function MainForm() {
     const [shownTasks, setShownTasks] = useState<TaskProps[]>([]);
     const [doneCount, setDoneCount] = useState<number>(0);
     const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const toggleTaskDone = (id: number) => {
+    const toggleTaskDone = async (id: string) => {
+        const res = await fetch(`/api/update/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completed: true }),
+        });
+
+        const updatedTask = await res.json();
         setTasks((prevTasks) => prevTasks.map((task) => {
             if (task.id === id) {
-                return { ...task, isDone: !task.isDone };
+                return updatedTask;
             }
 
             return task;
         }));
     };
 
-    const removeTask = (id: number) => {
+    const removeTask = async (id: string) => {
+        await fetch(`/api/delete/${id}`, {
+            method: 'DELETE',
+        });
+
         setTasks(tasks.filter((task) => task.id !== id));
     };
+
+    useEffect(() => {
+        const fetchTodos = async () => {
+            const res = await fetch('/api/get');
+            const data = await res.json();
+            setTasks(data);
+        };
+
+        fetchTodos();
+    }, []);
 
     useEffect(() => {
         const newDoneCount = tasks.filter((task) => task.isDone).length;
@@ -33,9 +56,9 @@ export default function MainForm() {
     }, [tasks]);
 
     useEffect(() => {
-        if (selectedList === 1) {
+        if (selectedList === 0) {
             setShownTasks(tasks.filter((task) => !task.isDone));
-        } else if (selectedList === 2) {
+        } else if (selectedList === 1) {
             setShownTasks(tasks.filter((task) => task.isDone));
         } else {
             setShownTasks(tasks);
@@ -58,6 +81,8 @@ export default function MainForm() {
                 tasks={tasks}
                 setTasks={setTasks}
                 setAddFormOpen={setAddFormOpen}
+                disabled={loading}
+                setDisabled={setLoading}
             />
             <TasksList
                 shownTasks={shownTasks}

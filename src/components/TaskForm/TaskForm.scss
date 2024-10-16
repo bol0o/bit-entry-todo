@@ -38,5 +38,9 @@
                 cursor: pointer;
             }
         }
+
+        &__buttonDisabled {
+            background-color: #515052;
+        }
     }
 }

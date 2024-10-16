@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 
 export interface TaskProps {
-    id: number,
+    id: string,
     title: string,
     description: string,
     isDone: boolean,
