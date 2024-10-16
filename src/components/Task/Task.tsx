@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 
 export interface TaskProps {
-    id: number,
+    id: string,
     title: string,
     description: string,
     isDone: boolean,
@@ -42,7 +42,7 @@ export default function Task({
             </div>
             <input
                 type="checkbox"
-                checked={isDone}
+                defaultChecked={isDone}
                 onClick={markAsDone}
                 className="task--mainWrapper__doneButton"
             />
