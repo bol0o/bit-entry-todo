@@ -80,7 +80,6 @@ export default function MainForm() {
                 error: 'Wystąpił błąd podczas usuwania zadania! Spróbuj ponownie!',
             },
         ).then(() => {
-            // Update state to remove the deleted task
             setTasks(tasks.filter((task) => task.id !== id));
         });
     };

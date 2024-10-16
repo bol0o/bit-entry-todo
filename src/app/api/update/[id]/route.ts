@@ -9,9 +9,9 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const { isDone } = await req.json();
 
     const dataSource = await connectToDatabase();
-    const todoRepo = dataSource.getRepository(Task);
+    const todoRepo = dataSource.getMongoRepository(Task);
     const objectId = new ObjectId(id);
-    const todo = await todoRepo.findOne({ _id: objectId });
+    const todo = await todoRepo.findOne({ where: { _id: objectId } });
 
     if (!todo) {
         return NextResponse.json({ message: 'Task not found' }, { status: 404 });
