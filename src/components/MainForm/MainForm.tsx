@@ -6,7 +6,6 @@ import UpperSection from '../UpperSection/UpperSection';
 import TasksList from '../TasksList/TasksList';
 import { TaskProps } from '../Task/Task';
 import TaskForm from '../TaskForm/TaskForm';
-/* eslint-disable @typescript-eslint/indent */
 
 export default function MainForm() {
     const [tasks, setTasks] = useState<TaskProps[]>([]);

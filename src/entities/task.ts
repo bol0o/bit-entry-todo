@@ -5,7 +5,6 @@ import {
     Column,
 } from 'typeorm';
 import { IsBoolean, IsString } from 'class-validator';
-/* eslint-disable import/prefer-default-export */
 
 @Entity()
 export class Task {
