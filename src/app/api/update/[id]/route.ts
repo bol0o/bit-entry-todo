@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '@/lib/db';
 import { Task } from '@/entities/task';
-/* eslint-disable import/prefer-default-export */
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
     const { id } = params;
@@ -20,5 +19,5 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     todoRepo.merge(todo, { isDone });
     const updatedTodo = await todoRepo.save(todo);
 
-    return NextResponse.json(updatedTodo);
+    return NextResponse.json(updatedTodo, { status: 200 });
 }

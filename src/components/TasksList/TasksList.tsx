@@ -12,7 +12,6 @@ export default function TasksList({
     toggleTaskDone,
     removeTask,
 }: TasksListProps) {
-    console.log(shownTasks);
     return (
         <div className="tasksList--mainWrapper">
             {shownTasks.map((task: TaskProps) => (
@@ -28,7 +27,7 @@ export default function TasksList({
             ))}
             {shownTasks.length > 0 ? null
                 : (
-                    <div style={{ alignSelf: 'center', textAlign: 'center' }}>
+                    <div className="tasksList--mainWrapper__note">
                         <p>Narazie nic tu nie ma!</p>
                         <p>
                             Kliknij przycisk

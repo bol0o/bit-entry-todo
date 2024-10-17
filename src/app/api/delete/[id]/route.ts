@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '@/lib/db';
 import { Task } from '@/entities/task';
-/* eslint-disable import/prefer-default-export */
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     const { id } = params;
@@ -18,5 +17,5 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
         return NextResponse.json({ message: 'Task not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Task deleted successfully' });
+    return NextResponse.json({ message: 'Task deleted successfully' }, { status: 200 });
 }

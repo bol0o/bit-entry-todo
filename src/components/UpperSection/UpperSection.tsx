@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { TaskProps } from '../Task/Task';
+import CategoryButton from '../CategoryButton/CategoryButton';
 
 interface UpperSectionProps {
     tasks: TaskProps[],
@@ -22,65 +23,28 @@ export default function UpperSection({
     return (
         <div className="upperSection--mainWrapper--upperSectionWrapper">
             <div className="upperSection--mainWrapper--buttonsListWrapper">
-                <div className="upperSection--mainWrapper--selectedButtonWrapper">
-                    <button
-                        type="button"
-                        onClick={() => setSelectedList(0)}
-                    >
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
-                            ${selectedList === 0 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
-                        >
-                            Wszystkie
-                        </p>
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__count
-                            ${selectedList === 0 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
-                        >
-                            {tasks.length}
-                        </p>
-                    </button>
-                </div>
+                <CategoryButton
+                    buttonListId={0}
+                    selectedList={selectedList}
+                    shownText="Wszystkie"
+                    shownAmount={tasks.length}
+                    setSelectedList={setSelectedList}
+                />
+                <CategoryButton
+                    buttonListId={1}
+                    selectedList={selectedList}
+                    shownText="Do zrobienia"
+                    shownAmount={tasks.length - doneCount}
+                    setSelectedList={setSelectedList}
+                />
                 <div className="upperSection--mainWrapper--buttonsListWrapper__breakLine" />
-                <div className="upperSection--mainWrapper--selectedButtonWrapper">
-                    <button
-                        type="button"
-                        onClick={() => setSelectedList(1)}
-                    >
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
-                            ${selectedList === 1 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
-                        >
-                            Do zrobienia
-                        </p>
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__count
-                            ${selectedList === 1 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
-                        >
-                            {tasks.length - doneCount}
-                        </p>
-                    </button>
-                </div>
-                <div className="upperSection--mainWrapper--selectedButtonWrapper">
-                    <button
-                        type="button"
-                        onClick={() => setSelectedList(2)}
-                        className={selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__active' : ''}
-                    >
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__selectedType
-                            ${selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__selectedType__active' : ''}`}
-                        >
-                            Wykonane
-                        </p>
-                        <p
-                            className={`upperSection--mainWrapper--selectedButtonWrapper__count
-                            ${selectedList === 2 ? 'upperSection--mainWrapper--selectedButtonWrapper__count__active' : ''}`}
-                        >
-                            {doneCount}
-                        </p>
-                    </button>
-                </div>
+                <CategoryButton
+                    buttonListId={2}
+                    selectedList={selectedList}
+                    shownText="Wykonane"
+                    shownAmount={doneCount}
+                    setSelectedList={setSelectedList}
+                />
             </div>
             <button
                 type="button"
@@ -89,8 +53,8 @@ export default function UpperSection({
                 onClick={() => setAddFormOpen(!addFormOpen)}
             >
                 {addFormOpen
-                    ? <FiMinus style={{ width: 20, height: 20 }} />
-                    : <FiPlus style={{ width: 20, height: 20 }} />}
+                    ? <FiMinus className="upperSection--mainWrapper__addTaskButton__icon" />
+                    : <FiPlus className="upperSection--mainWrapper__addTaskButton__icon" />}
                 <p>{addFormOpen ? 'Zamknij formularz' : 'Dodaj zadanie'}</p>
             </button>
         </div>
