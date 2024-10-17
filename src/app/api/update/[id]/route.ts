@@ -19,5 +19,5 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     todoRepo.merge(todo, { isDone });
     const updatedTodo = await todoRepo.save(todo);
 
-    return NextResponse.json(updatedTodo);
+    return NextResponse.json(updatedTodo, { status: 200 });
 }

@@ -17,5 +17,5 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
         return NextResponse.json({ message: 'Task not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Task deleted successfully' });
+    return NextResponse.json({ message: 'Task deleted successfully' }, { status: 200 });
 }

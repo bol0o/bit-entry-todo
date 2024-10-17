@@ -3,4 +3,8 @@
     flex-direction: column;
     margin-top: 20px;
     gap: 20px;
+
+    &__note {
+        text-align: center;
+    }
 }

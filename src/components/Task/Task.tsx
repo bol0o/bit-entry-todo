@@ -42,7 +42,6 @@ export default function Task({
             </div>
             <input
                 type="checkbox"
-                defaultChecked={isDone}
                 onClick={markAsDone}
                 className="task--mainWrapper__doneButton"
             />

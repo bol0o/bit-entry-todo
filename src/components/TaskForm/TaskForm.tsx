@@ -5,8 +5,6 @@ import { TaskProps } from '../Task/Task';
 interface TaskFormProps {
     addFormOpen: boolean,
     tasks: TaskProps[],
-    disabled: boolean,
-    setDisabled: (isDisabled: boolean) => void,
     setTasks: (newTasks: TaskProps[]) => void
     setAddFormOpen: (open: boolean) => void,
 }
@@ -14,13 +12,12 @@ interface TaskFormProps {
 export default function TaskForm({
     addFormOpen,
     tasks,
-    disabled,
-    setDisabled,
     setTasks,
     setAddFormOpen,
 }: TaskFormProps) {
     const [newTaskName, setNewTaskName] = useState<string>('');
     const [newTaskDescription, setNewTaskDescription] = useState<string>('');
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     const postTaskRequest = async (newTask: Partial<TaskProps>) => {
         const response = await fetch('/api/post', {
@@ -37,7 +34,7 @@ export default function TaskForm({
     };
 
     const addTask = async () => {
-        setDisabled(true);
+        setButtonDisabled(true);
 
         const newTask: Partial<TaskProps> = {
             title: newTaskName.trim(),
@@ -59,10 +56,8 @@ export default function TaskForm({
             setNewTaskName('');
             setNewTaskDescription('');
             setAddFormOpen(false);
-            setDisabled(false);
+            setButtonDisabled(false);
         });
-
-        setDisabled(false);
     };
 
     return (
@@ -71,20 +66,22 @@ export default function TaskForm({
             <input
                 type="text"
                 placeholder="Podaj tytuł zadania..."
+                maxLength={35}
                 value={newTaskName}
                 onChange={(e) => setNewTaskName(e.target.value)}
             />
             <input
                 type="text"
                 placeholder="Podaj opis zadania..."
+                maxLength={100}
                 value={newTaskDescription}
                 onChange={(e) => setNewTaskDescription(e.target.value)}
             />
             <button
                 type="button"
                 onClick={() => addTask()}
-                disabled={disabled}
-                className={disabled ? 'taskForm--mainWrapper__buttonDisabled' : ''}
+                disabled={buttonDisabled}
+                className={buttonDisabled ? 'taskForm--mainWrapper__buttonDisabled' : ''}
             >
                 Dodaj
             </button>

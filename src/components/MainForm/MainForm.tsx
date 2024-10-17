@@ -6,6 +6,7 @@ import UpperSection from '../UpperSection/UpperSection';
 import TasksList from '../TasksList/TasksList';
 import { TaskProps } from '../Task/Task';
 import TaskForm from '../TaskForm/TaskForm';
+/* eslint-disable indent */
 
 export default function MainForm() {
     const [tasks, setTasks] = useState<TaskProps[]>([]);
@@ -13,9 +14,8 @@ export default function MainForm() {
     const [shownTasks, setShownTasks] = useState<TaskProps[]>([]);
     const [doneCount, setDoneCount] = useState<number>(0);
     const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
 
-    const fetchTasksRequest = async () => {
+    const fetchRequest = async () => {
         const response = await fetch('/api/get', {
             method: 'GET',
         });
@@ -27,7 +27,7 @@ export default function MainForm() {
         return response.json();
     };
 
-    const markCompleteRequest = async (id: string) => {
+    const updateRequest = async (id: string) => {
         const response = await fetch(`/api/update/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -41,7 +41,7 @@ export default function MainForm() {
         return response.json();
     };
 
-    const deleteTaskRequest = async (id: string) => {
+    const deleteRequest = async (id: string) => {
         const response = await fetch(`/api/delete/${id}`, {
             method: 'DELETE',
         });
@@ -53,7 +53,7 @@ export default function MainForm() {
 
     const toggleTaskDone = async (id: string) => {
         toast.promise(
-            markCompleteRequest(id),
+            updateRequest(id),
             {
                 loading: 'Zmienianie stanu zadania...',
                 success: 'Zmieniono stan zadania!',
@@ -72,7 +72,7 @@ export default function MainForm() {
 
     const removeTask = async (id: string) => {
         toast.promise(
-            deleteTaskRequest(id),
+            deleteRequest(id),
             {
                 loading: 'Usuwanie zadania...',
                 success: 'Usunięto zadanie!',
@@ -85,7 +85,7 @@ export default function MainForm() {
 
     useEffect(() => {
         toast.promise(
-            fetchTasksRequest(),
+            fetchRequest(),
             {
                 loading: 'Pobieranie zadań...',
                 success: 'Zadania pobrane!',
@@ -102,12 +102,16 @@ export default function MainForm() {
     }, [tasks]);
 
     useEffect(() => {
-        if (selectedList === 1) {
-            setShownTasks(tasks.filter((task) => !task.isDone));
-        } else if (selectedList === 2) {
-            setShownTasks(tasks.filter((task) => task.isDone));
-        } else {
-            setShownTasks(tasks);
+        switch (selectedList) {
+            case 1:
+                setShownTasks(tasks.filter((task) => !task.isDone));
+                break;
+            case 2:
+                setShownTasks(tasks.filter((task) => task.isDone));
+                break;
+            default:
+                setShownTasks(tasks);
+                break;
         }
     }, [selectedList, tasks]);
 
@@ -128,8 +132,6 @@ export default function MainForm() {
                 tasks={tasks}
                 setTasks={setTasks}
                 setAddFormOpen={setAddFormOpen}
-                disabled={loading}
-                setDisabled={setLoading}
             />
             <TasksList
                 shownTasks={shownTasks}

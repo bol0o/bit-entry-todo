@@ -6,5 +6,5 @@ export async function GET() {
     const dataSource = await connectToDatabase();
     const todoRepo = dataSource.getRepository(Task);
     const todos = await todoRepo.find();
-    return NextResponse.json(todos);
+    return NextResponse.json(todos, { status: 200 });
 }
